@@ -246,3 +246,5 @@ Build/Android/res/*/*
 
 # End of https://www.toptal.com/developers/gitignore/api/rider,intellij,unrealengine
 .idea/.idea.LunaAdv/.idea/workspace.xml
+.idea/.idea.LunaAdv/.idea/vcs.xml
+.idea/.idea.LunaAdv/.idea/workspace.xml

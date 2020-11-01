@@ -14,6 +14,12 @@ void ARunnerGameMode::BeginPlay()
 
 	PlayerPawn = Cast<ALuninhaRunner>(GetWorld()->GetFirstPlayerController()->GetPawn());
 
+	//Set initial player speed
+	PlayerPawn->GetCharacterMovement()->MaxWalkSpeed = StartingSpeed;
+
+	CoinComboChance = InitialCoinComboChance;
+	CoinSpawnChance = InitialCoinSpawnChance;
+	
 	// Spawn a initial set of grounds
 	for
 	(int i = 0; i < 10; ++i)
@@ -21,8 +27,7 @@ void ARunnerGameMode::BeginPlay()
 		SpawnTitle(false);
 	}
 
-	//Set initial player speed
-	PlayerPawn->GetCharacterMovement()->MaxWalkSpeed = StartingSpeed;
+
 }
 
 void ARunnerGameMode::DestroyOldestTile()
@@ -35,28 +40,17 @@ void ARunnerGameMode::DestroyOldestTile()
 	NumTiles--;
 }
 
-void ARunnerGameMode::SpawnCoin()
+APickups_Base* ARunnerGameMode::SpawnCoin(AGroundTile* TileToAttach, FVector SpawnLocation)
 {
-	if(!LastSpawnedTile) return;
+	if(!TileToAttach) return nullptr;
 
-	//Spawn based on chance
-	if(UKismetMathLibrary::RandomBoolWithWeight(CoinSpawnChance))
-	{
-		TArray<FVector> LanesPos;
-		LastSpawnedTile->GetLanesPosition(LanesPos);
+	//Spawn a new coin
+	APickups_Base* Coin = GetWorld()->SpawnActor<APickups_Base>(CoinType, SpawnLocation, FRotator(),
+	                                                            FActorSpawnParameters());
 
-		FVector SpawnLocation{ LanesPos[UKismetMathLibrary::RandomIntegerInRange(0, LanesPos.Num() - 1)] };
+	Coin->AttachToActor(TileToAttach, FAttachmentTransformRules::KeepWorldTransform);
 
-		//Spawn a new coin
-		APickups_Base* Coin = GetWorld()->SpawnActor<APickups_Base>(CoinType, SpawnLocation, FRotator(), FActorSpawnParameters());
-		
-		Coin->AttachToActor(LastSpawnedTile, FAttachmentTransformRules::KeepWorldTransform);
-		
-	} else
-	{
-		GEngine->AddOnScreenDebugMessage(0, 0.f, FColor::Red,
-		                                 FString::Printf(TEXT("Tile %d will not spawn a coin"), NumTiles));
-	}
+	return Coin;
 }
 
 void ARunnerGameMode::SpawnTitle(bool bDestroyOldTile)
@@ -76,9 +70,36 @@ void ARunnerGameMode::SpawnTitle(bool bDestroyOldTile)
 
 	LastSpawnedTile->SpawnRandomObstacle();
 	NumTiles++;
-
-	SpawnCoin();
 	
+	//Spawn first coin based on chance
+	if(UKismetMathLibrary::RandomBoolWithWeight(CoinSpawnChance))
+	{
+		TArray<FVector> LanesPos;
+		LastSpawnedTile->GetLanesPosition(LanesPos);
+
+		// Random choose the lane to spawn the coin
+		FVector SpawnLocation{ LanesPos[UKismetMathLibrary::RandomIntegerInRange(0, LanesPos.Num() - 1)] };
+		
+		APickups_Base* LastCoin = SpawnCoin(LastSpawnedTile, SpawnLocation);
+
+		while(UKismetMathLibrary::RandomBoolWithWeight(CoinComboChance))
+		{
+
+			GEngine->AddOnScreenDebugMessage(12, 15.f, FColor::Black,
+                                 FString::Printf(TEXT("Tile %d will spawn a COMBO coin. Chance: %f"), NumTiles, CoinComboChance));
+			const FVector NewLocationOffset(LastCoin->GetActorLocation().X, LastCoin->GetActorLocation().Y - CoinYOffset, LastCoin->GetActorLocation().Z);
+			
+			LastCoin = SpawnCoin(LastSpawnedTile, NewLocationOffset);
+			
+			SetCoinComboChance(CoinComboChancePenalty);
+		}
+		ResetCoinComboChance();
+	} else
+	{
+		GEngine->AddOnScreenDebugMessage(10, 15.f, FColor::Red,
+		                                 FString::Printf(TEXT("Tile %d will not spawn a coin"), NumTiles));
+	}
+
 	if(bDestroyOldTile) DestroyOldestTile();
 }
 
@@ -94,4 +115,14 @@ void ARunnerGameMode::ImproveSpeed() const
 		float NewWalkSpeed{ PlayerPawn->GetCharacterMovement()->MaxWalkSpeed *= SpeedImprovementRadio };
 		PlayerPawn->GetCharacterMovement()->MaxWalkSpeed = FMath::Clamp(NewWalkSpeed, StartingSpeed, MaxSpeed);
 	}
+}
+
+void ARunnerGameMode::SetCoinComboChance(const float Value)
+{
+	FMath::Clamp<float>(CoinComboChance += Value, 0.f, 1.f);
+}
+
+void ARunnerGameMode::SetCoinSpawnChance(const float Value)
+{
+	FMath::Clamp<float>(CoinSpawnChance += Value, 0.f, 1.f);
 }
