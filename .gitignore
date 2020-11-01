@@ -240,7 +240,9 @@ Build/Android/res/*/*
 !Build/Android/res/*/*.png
 
 
-.plastic
+.plastic/
+.ignore.conf
+.ideia/
 
 # End of https://www.toptal.com/developers/gitignore/api/rider,intellij,unrealengine
 .idea/.idea.LunaAdv/.idea/workspace.xml
