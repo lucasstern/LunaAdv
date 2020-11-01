@@ -1,0 +1,3 @@
+rep "LunaAdventures@35.196.79.61:8087"
+  path "/"
+    smartbranch "/main/Pickup"                    
