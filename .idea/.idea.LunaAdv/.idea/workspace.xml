@@ -26,12 +26,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8e8ff48-3529-4978-80ee-1eb26c1b085a" name="Default Changelist" comment="">
+    <list default="true" id="c8e8ff48-3529-4978-80ee-1eb26c1b085a" name="Default Changelist" comment="Coin spawnando apenas acima do chao">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LunaAdv/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LunaAdv/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Architecture/Pickups/Coin/BP_Pickup_Coin.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Architecture/Pickups/Coin/BP_Pickup_Coin.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Architecture/Tiles/BP_GroundTile_Default.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Architecture/Tiles/BP_GroundTile_Default.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/Main.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/Main.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/LunaAdv/GameModes/RunnerGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/LunaAdv/GameModes/RunnerGameMode.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/LunaAdv/Pickups/Pickups_Base.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/LunaAdv/Pickups/Pickups_Base.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/LunaAdv/Pickups/Pickups_Base.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/LunaAdv/Pickups/Pickups_Base.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,11 +104,11 @@
         <option value="$PROJECT_DIR$/Source/LunaAdv/Architecture/GroundTile.cpp" />
         <option value="$PROJECT_DIR$/Source/LunaAdv/Architecture/GroundTile.h" />
         <option value="$PROJECT_DIR$/Source/LunaAdv/Buildings/Obstacle.h" />
-        <option value="$PROJECT_DIR$/Source/LunaAdv/Pickups/Pickups_Base.cpp" />
-        <option value="$PROJECT_DIR$/Source/LunaAdv/Pickups/Pickups_Base.h" />
         <option value="$PROJECT_DIR$/Source/LunaAdv/Pickups/Coin.h" />
         <option value="$PROJECT_DIR$/Source/LunaAdv/Pickups/Coin.cpp" />
         <option value="$PROJECT_DIR$/Source/LunaAdv/GameModes/RunnerGameMode.h" />
+        <option value="$PROJECT_DIR$/Source/LunaAdv/Pickups/Pickups_Base.cpp" />
+        <option value="$PROJECT_DIR$/Source/LunaAdv/Pickups/Pickups_Base.h" />
         <option value="$PROJECT_DIR$/Source/LunaAdv/GameModes/RunnerGameMode.cpp" />
       </list>
     </option>
@@ -387,8 +386,16 @@
       <workItem from="1604263099080" duration="3210000" />
       <workItem from="1604268588685" duration="268000" />
       <workItem from="1604268911793" duration="6254000" />
-      <workItem from="1604483334422" duration="3038000" />
+      <workItem from="1604483334422" duration="6932000" />
     </task>
+    <task id="LOCAL-00001" summary="Coin spawnando apenas acima do chao">
+      <created>1604486820923</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1604486820923</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -405,6 +412,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Coin spawnando apenas acima do chao" />
+    <option name="LAST_COMMIT_MESSAGE" value="Coin spawnando apenas acima do chao" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="166" key="#Plugins" timestamp="1604268805596">
@@ -415,32 +424,32 @@
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
     <state x="1120" y="261" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.2560.1050/-1920.0.1920.1050@0.0.2560.1050" timestamp="1599127402798" />
-    <state width="2516" height="276" key="GridCell.Tab.0.bottom" timestamp="1604483782775">
+    <state width="2516" height="276" key="GridCell.Tab.0.bottom" timestamp="1604487599567">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
     <state width="1876" height="276" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1604273455636" />
-    <state width="2516" height="276" key="GridCell.Tab.0.bottom/0.0.2560.1050/-1920.0.1920.1050@0.0.2560.1050" timestamp="1604483782775" />
+    <state width="2516" height="276" key="GridCell.Tab.0.bottom/0.0.2560.1050/-1920.0.1920.1050@0.0.2560.1050" timestamp="1604487599567" />
     <state width="1235" height="287" key="GridCell.Tab.0.bottom/1920.-508.2560.1050/0.0.1920.1050@1920.-508.2560.1050" timestamp="1597753714183" />
     <state width="968" height="281" key="GridCell.Tab.0.bottom/1920.0.2560.1050/0.0.1920.1050@1920.0.2560.1050" timestamp="1597922919192" />
-    <state width="2516" height="276" key="GridCell.Tab.0.center" timestamp="1604483782775">
+    <state width="2516" height="276" key="GridCell.Tab.0.center" timestamp="1604487599567">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
     <state width="1876" height="276" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1604273455636" />
-    <state width="2516" height="276" key="GridCell.Tab.0.center/0.0.2560.1050/-1920.0.1920.1050@0.0.2560.1050" timestamp="1604483782775" />
+    <state width="2516" height="276" key="GridCell.Tab.0.center/0.0.2560.1050/-1920.0.1920.1050@0.0.2560.1050" timestamp="1604487599567" />
     <state width="1235" height="287" key="GridCell.Tab.0.center/1920.-508.2560.1050/0.0.1920.1050@1920.-508.2560.1050" timestamp="1597753714183" />
     <state width="968" height="281" key="GridCell.Tab.0.center/1920.0.2560.1050/0.0.1920.1050@1920.0.2560.1050" timestamp="1597922919192" />
-    <state width="2516" height="276" key="GridCell.Tab.0.left" timestamp="1604483782774">
+    <state width="2516" height="276" key="GridCell.Tab.0.left" timestamp="1604487599567">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
     <state width="1876" height="276" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1604273455635" />
-    <state width="2516" height="276" key="GridCell.Tab.0.left/0.0.2560.1050/-1920.0.1920.1050@0.0.2560.1050" timestamp="1604483782774" />
+    <state width="2516" height="276" key="GridCell.Tab.0.left/0.0.2560.1050/-1920.0.1920.1050@0.0.2560.1050" timestamp="1604487599567" />
     <state width="1235" height="287" key="GridCell.Tab.0.left/1920.-508.2560.1050/0.0.1920.1050@1920.-508.2560.1050" timestamp="1597753714183" />
     <state width="968" height="281" key="GridCell.Tab.0.left/1920.0.2560.1050/0.0.1920.1050@1920.0.2560.1050" timestamp="1597922919191" />
-    <state width="2516" height="276" key="GridCell.Tab.0.right" timestamp="1604483782775">
+    <state width="2516" height="276" key="GridCell.Tab.0.right" timestamp="1604487599567">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>
     <state width="1876" height="276" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1604273455636" />
-    <state width="2516" height="276" key="GridCell.Tab.0.right/0.0.2560.1050/-1920.0.1920.1050@0.0.2560.1050" timestamp="1604483782775" />
+    <state width="2516" height="276" key="GridCell.Tab.0.right/0.0.2560.1050/-1920.0.1920.1050@0.0.2560.1050" timestamp="1604487599567" />
     <state width="1235" height="287" key="GridCell.Tab.0.right/1920.-508.2560.1050/0.0.1920.1050@1920.-508.2560.1050" timestamp="1597753714183" />
     <state width="968" height="281" key="GridCell.Tab.0.right/1920.0.2560.1050/0.0.1920.1050@1920.0.2560.1050" timestamp="1597922919192" />
     <state width="2516" height="379" key="GridCell.Tab.1.bottom" timestamp="1600774321744">
@@ -516,11 +525,11 @@
       <screen x="1920" y="-508" width="2560" height="1050" />
     </state>
     <state x="2201" y="-253" width="700" height="530" key="recent.locations.popup/1920.-508.2560.1050/0.0.1920.1050@1920.-508.2560.1050" timestamp="1597748260106" />
-    <state x="1187" y="233" width="672" height="678" key="search.everywhere.popup" timestamp="1604274685505">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="1583" y="233" width="672" height="678" key="search.everywhere.popup" timestamp="1604487938969">
+      <screen x="0" y="0" width="2560" height="1050" />
     </state>
     <state x="1187" y="233" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1604274685505" />
-    <state x="1583" y="233" width="672" height="678" key="search.everywhere.popup/0.0.2560.1050/-1920.0.1920.1050@0.0.2560.1050" timestamp="1600080384577" />
+    <state x="1583" y="233" width="672" height="678" key="search.everywhere.popup/0.0.2560.1050/-1920.0.1920.1050@0.0.2560.1050" timestamp="1604487938969" />
     <state x="236" y="438" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1599557598966">
       <screen x="0" y="0" width="2560" height="1050" />
     </state>

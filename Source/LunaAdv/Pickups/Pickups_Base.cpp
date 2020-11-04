@@ -31,3 +31,8 @@ void APickups_Base::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
+FVector APickups_Base::GetPickupAreaBounds() const
+{
+	return PickupArea->GetScaledBoxExtent();
+}
+

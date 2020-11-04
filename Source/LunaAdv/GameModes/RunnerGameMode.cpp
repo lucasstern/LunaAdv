@@ -44,16 +44,32 @@ APickups_Base* ARunnerGameMode::SpawnCoin(AGroundTile* TileToAttach, FVector Spa
 
 	FActorSpawnParameters SpawnInfo;
 	SpawnInfo.Owner = TileToAttach;
-	SpawnInfo.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
+	SpawnInfo.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
 	//Spawn a new coin
-	APickups_Base* Coin = GetWorld()->SpawnActor<APickups_Base>(CoinType, FVector(SpawnLocation.X, SpawnLocation.Y, 20.f), FRotator(),
-	                                                            SpawnInfo);
-
-	Coin->Pickup
+	APickups_Base* Coin = GetWorld()->SpawnActor<APickups_Base>(
+		CoinType, FVector(SpawnLocation.X, SpawnLocation.Y, 10.f), FRotator(),
+		SpawnInfo);
 	if(Coin != nullptr)
 	{
-		Coin->AttachToActor(TileToAttach, FAttachmentTransformRules::KeepWorldTransform);	
+		Coin->AttachToActor(TileToAttach, FAttachmentTransformRules::KeepWorldTransform);
+
+		//Handle Coin spawn location
+		TArray<AActor*> Actorsoverlapping;
+		Coin->GetOverlappingActors(Actorsoverlapping);
+
+		//TODO WIP
+		Actorsoverlapping.Sort([](const AActor& ActorA, const AActor& ActorB)
+        {
+            return ActorA.GetActorLocation().Z < ActorB.GetActorLocation().Z;
+        });
+		for(auto OtherActor : Actorsoverlapping)
+		{
+			const FVector OtherLocation{ OtherActor->GetActorLocation() };
+			const FVector CoinLocation{ Coin->GetActorLocation() };
+			Coin->SetActorLocation(FVector(CoinLocation.X, CoinLocation.Y, OtherLocation.Z + 10.f));
+			break;
+		}
 	}
 	return Coin;
 }

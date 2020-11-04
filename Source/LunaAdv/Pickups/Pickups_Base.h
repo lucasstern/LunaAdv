@@ -21,6 +21,8 @@ public:
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	FVector GetPickupAreaBounds() const;
 	
 protected:
 	// Called when the game starts or when spawned
