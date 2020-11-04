@@ -19,15 +19,13 @@ void ARunnerGameMode::BeginPlay()
 
 	CoinComboChance = InitialCoinComboChance;
 	CoinSpawnChance = InitialCoinSpawnChance;
-	
+
 	// Spawn a initial set of grounds
 	for
 	(int i = 0; i < 10; ++i)
 	{
 		SpawnTitle(false);
 	}
-
-
 }
 
 void ARunnerGameMode::DestroyOldestTile()
@@ -44,12 +42,19 @@ APickups_Base* ARunnerGameMode::SpawnCoin(AGroundTile* TileToAttach, FVector Spa
 {
 	if(!TileToAttach) return nullptr;
 
+	FActorSpawnParameters SpawnInfo;
+	SpawnInfo.Owner = TileToAttach;
+	SpawnInfo.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
+
 	//Spawn a new coin
-	APickups_Base* Coin = GetWorld()->SpawnActor<APickups_Base>(CoinType, SpawnLocation, FRotator(),
-	                                                            FActorSpawnParameters());
+	APickups_Base* Coin = GetWorld()->SpawnActor<APickups_Base>(CoinType, FVector(SpawnLocation.X, SpawnLocation.Y, 20.f), FRotator(),
+	                                                            SpawnInfo);
 
-	Coin->AttachToActor(TileToAttach, FAttachmentTransformRules::KeepWorldTransform);
-
+	Coin->Pickup
+	if(Coin != nullptr)
+	{
+		Coin->AttachToActor(TileToAttach, FAttachmentTransformRules::KeepWorldTransform);	
+	}
 	return Coin;
 }
 
@@ -70,36 +75,32 @@ void ARunnerGameMode::SpawnTitle(bool bDestroyOldTile)
 
 	LastSpawnedTile->SpawnRandomObstacle();
 	NumTiles++;
-	
+
 	//Spawn first coin based on chance
 	if(UKismetMathLibrary::RandomBoolWithWeight(CoinSpawnChance))
 	{
+		// Randomically choose the lane to spawn the coin
 		TArray<FVector> LanesPos;
 		LastSpawnedTile->GetLanesPosition(LanesPos);
-
-		// Random choose the lane to spawn the coin
 		FVector SpawnLocation{ LanesPos[UKismetMathLibrary::RandomIntegerInRange(0, LanesPos.Num() - 1)] };
-		
+
 		APickups_Base* LastCoin = SpawnCoin(LastSpawnedTile, SpawnLocation);
 
-		while(UKismetMathLibrary::RandomBoolWithWeight(CoinComboChance))
+		// Spawn more coins based on chance
+		while(UKismetMathLibrary::RandomBoolWithWeight(CoinComboChance) && LastCoin)
 		{
+			// Make the new coin spawn a little farther than the last one
+			const FVector NewLocationOffset(LastCoin->GetActorLocation().X,
+			                                LastCoin->GetActorLocation().Y - CoinYOffset,
+			                                LastCoin->GetActorLocation().Z);
 
-			GEngine->AddOnScreenDebugMessage(12, 15.f, FColor::Black,
-                                 FString::Printf(TEXT("Tile %d will spawn a COMBO coin. Chance: %f"), NumTiles, CoinComboChance));
-			const FVector NewLocationOffset(LastCoin->GetActorLocation().X, LastCoin->GetActorLocation().Y - CoinYOffset, LastCoin->GetActorLocation().Z);
-			
 			LastCoin = SpawnCoin(LastSpawnedTile, NewLocationOffset);
-			
+
+			// Lower the chance to spawn the next coin
 			SetCoinComboChance(CoinComboChancePenalty);
 		}
 		ResetCoinComboChance();
-	} else
-	{
-		GEngine->AddOnScreenDebugMessage(10, 15.f, FColor::Red,
-		                                 FString::Printf(TEXT("Tile %d will not spawn a coin"), NumTiles));
 	}
-
 	if(bDestroyOldTile) DestroyOldestTile();
 }
 
