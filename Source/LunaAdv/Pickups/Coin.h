@@ -14,10 +14,19 @@ class LUNAADV_API ACoin : public APickups_Base
 	GENERATED_BODY()
 
 public:
+	ACoin();
+	
 	FVector GetNextCoinLocation() const;
+
+	void SetActorsOverlapping(const TArray<AActor*> &ActorsArray);
+
+protected:
 	
 private:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Position", meta = (AllowPrivateAccess = "true"))
+	TArray<AActor*> ActorsOverlapping;
 
-public:
-	ACoin();
+
+protected:
+	virtual void OnPickup() override;
 };

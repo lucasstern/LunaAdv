@@ -8,6 +8,7 @@
 
 #include "RunnerGameMode.generated.h"
 
+class ACoin;
 class AGroundTile;
 
 UCLASS()
@@ -69,7 +70,7 @@ protected:
 
 	/** Type of coin to Spawn */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Score")
-	TSubclassOf<APickups_Base> CoinType;
+	TSubclassOf<ACoin> CoinType;
 
 	/** Save the current player score */
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, BlueprintSetter=AddScorePoints, BlueprintGetter=GetScorePoints,
@@ -133,5 +134,5 @@ private:
 	 * @return Pointer to the coin that was spawned
 	 */
 	UFUNCTION()
-	APickups_Base* SpawnCoin(AGroundTile* TileToAttach, FVector SpawnLocation);
+	ACoin* SpawnCoin(AGroundTile* TileToAttach, FVector SpawnLocation) const;
 };
